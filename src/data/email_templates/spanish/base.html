@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AInterviewer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+</head>
+<body style="font-family: 'Comfortaa',ui-rounded;font-size: 14px">
+{% if anti_phishing_phrase %}
+<div style="display: flex">
+    <div style="padding: 10px; background-color: #3d88d1; color: white;">
+        Frase anti phishing
+    </div>
+    <div style="padding: 10px; border: 2px dotted; color: #3d88d1;">
+        {{anti_phishing_phrase}}
+    </div>
+</div>
+{% endif %}
+<br/>
+<div id="header">
+    <p>{% block header %}{% endblock %}</p>
+</div>
+<br/>
+<div id="content">{% block content %}{% endblock %}</div>
+<br/><br/>
+<div style="opacity: 65%">
+    <p>
+        Si no esperabas este mensaje solo borra este correo, pero si quieres que atendamos tu caso escríbenos a <b><i>support@ainterviewer.tech</i></b>
+    </p>
+    <p>
+        Recuerda que nunca te pediremos tu contraseña o información personal por correo electrónico o
+        llamándote. Esta información es privada y no debes revelarla a nadie.
+    </p>
+    <br/>
+    <p>--</p>
+    <p>Equipo de AInterviewer</p>
+    <p>
+        <img src="{{WEB_UI_PATH}}/images/icons/ainterviewer_logo_name.png"
+             width="50px"
+             alt="AInterviewer logo"
+        />
+    </p>
+</div>
+</body>
+</html>

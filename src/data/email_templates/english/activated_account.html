@@ -1,0 +1,12 @@
+{% extends "english/base.html" %}
+{% block header %}
+Hi {{user_nickname}},
+{% endblock %}
+{% block content %}
+<p>
+    We want to tell you that your account has been activated, and you can start using our services.
+</p>
+<p>
+    Enter to <b><i><a href="{{WEB_UI_PATH}}">AInterviewer</a></i></b> with your email <b>{{user_email}}</b> and password to start in the application.
+</p>
+{% endblock %}

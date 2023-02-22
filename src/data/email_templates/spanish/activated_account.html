@@ -1,0 +1,12 @@
+{% extends "spanish/base.html" %}
+{% block header %}
+Hola {{user_nickname}},
+{% endblock %}
+{% block content %}
+<p>
+    Te contamos que tu cuenta ya ha sido activada y puedes empezar a usar nuestros servicios.
+</p>
+<p>
+    Ingresa a <b><i><a href="{{WEB_UI_PATH}}">AInterviewer</a></i></b> con tu correo <b>{{user_email}}</b> y contraseña para iniciar en la aplicación.
+</p>
+{% endblock %}

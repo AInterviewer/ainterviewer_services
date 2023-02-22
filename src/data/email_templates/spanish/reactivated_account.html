@@ -1,0 +1,12 @@
+{% extends "spanish/base.html" %}
+{% block header %}
+Hola {{user_nickname}},
+{% endblock %}
+{% block content %}
+<p>
+    Tu cuenta ya ha sido reactivada y puedes volver a seguir usando nuestros servicios creando una nueva contraseña
+    haciendo clic aquí <b><i><a
+        href="{{WEB_UI_PATH}}/reset-password?user_id={{user_id}}&token={{user_reset_password_token_token}}">
+    AInterviewer</a></i></b>
+</p>
+{% endblock %}

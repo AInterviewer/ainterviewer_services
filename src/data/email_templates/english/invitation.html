@@ -1,0 +1,21 @@
+{% extends "english/base.html" %}
+{% block header %}
+Hi,
+{% endblock %}
+{% block content %}
+<p>
+    We are sending this message to you because you were invited by <b>{{user_given_names}} {{user_family_names}}</b> to AInterviewer application.
+</p>
+<p>
+    To join please click on the following link which will redirect you to the creation screen of your user:
+</p>
+<p>
+    <b>
+        <i>
+            <a href="{{WEB_UI_PATH}}/create_user?new_user_email={{new_user_email}}&sponsor_user_id={{user_id}}&code={{new_invitation_validation_code}}">
+                Invitation link
+            </a>
+        </i>
+    </b>
+</p>
+{% endblock %}

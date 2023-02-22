@@ -1,0 +1,40 @@
+@startuml
+skinparam componentStyle uml1
+
+package "AInterview" {
+
+    [User Repository]
+    [Audit Repository]
+
+    [UI] ..> (RestAPI) : use
+
+    [Audit Services]
+
+    [Security API] - RestAPI
+    [Security API] --> [Security Services]
+    [Security API] --> [Audit Services]
+
+    [Admin API] -right- RestAPI
+    [Admin API] --> [Admin Services]
+    [Admin API] --> [Audit Services]
+
+    [User API] -left- RestAPI
+    [User API] --> [User Services]
+    [User API] --> [Audit Services]
+
+    [Audit Services] --> [Audit Repository]
+    [Security Services] --> [User Repository]
+    [Admin Services] --> [User Repository]
+    [User Services] --> [User Repository]
+
+
+
+
+
+    database "MongoDB" {
+        [User Repository] ..> [ainterviewer] : use
+        [Audit Repository] ..> [ainterviewer] : use
+    }
+}
+
+@enduml

@@ -1,0 +1,22 @@
+{% extends "spanish/base.html" %}
+{% block header %}
+Hola,
+{% endblock %}
+{% block content %}
+<p>
+    Este mensaje te lo estamos enviando porque fuiste invitado por <b>{{user_given_names}} {{user_family_names}}</b> para unirte a la aplicación AInterviewer.
+</p>
+<p>
+    Para unirte por favor haz clic en el siguiente enlace el cual te direccionará a la pantalla de creación de tú
+    usuario:
+</p>
+<p>
+    <b>
+        <i>
+            <a href="{{WEB_UI_PATH}}/create_user?new_user_email={{new_user_email}}&sponsor_user_id={{user_id}}&code={{new_invitation_validation_code}}">
+                Link de invitación
+            </a>
+        </i>
+    </b>
+</p>
+{% endblock %}
