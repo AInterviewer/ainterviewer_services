@@ -171,7 +171,7 @@ def get_secure_user_data(user: User) -> Dict:
 
 
 def check_expired_passwords():
-    logging.info('HERE')
+    logging.info('Checking expired passwords')
     users = user_repo.find_users()
     for user in users:
         password = user.get_current_active_password()

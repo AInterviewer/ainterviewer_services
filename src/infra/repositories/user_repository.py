@@ -4,9 +4,22 @@ from domain import utils
 from domain.enums import State, UserRole, Language
 from domain.users import User, \
     UserInvitation, ResetPasswordToken, UserPassword, RefreshToken
-from infra.repositories.general_repository import CLIENT
+from infra.repositories.general_repository import AINTERVIEWER_CLIENT
 
-USERS_COLLECTION = CLIENT.users
+USERS_COLLECTION = AINTERVIEWER_CLIENT.users
+
+
+def find_number_of_users() -> int:
+    return USERS_COLLECTION.count
+
+
+def find_users() -> List[User]:
+    users: List[User] = []
+    for user_data in USERS_COLLECTION.find():
+        user = deserialize_user(user_data)
+        users.append(user)
+
+    return users
 
 
 def insert_user(user: User):
@@ -34,15 +47,6 @@ def update_user(user: User):
             'requested_changes_token': user.requested_changes_token if user.requested_changes_token else None
         }}
     )
-
-
-def find_users() -> List[User]:
-    users: List[User] = []
-    for user_data in USERS_COLLECTION.find():
-        user = deserialize_user(user_data)
-        users.append(user)
-
-    return users
 
 
 def find_user_by_id(user_id: str):

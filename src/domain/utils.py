@@ -27,17 +27,11 @@ def get_now_str():
 
 
 def encrypt_message(message: str):
-    if APP_ENVIRONMENT != Environment.PROD.name:
-        return message
-
     key = ENCRYPT_KEY.encode()
     return Fernet(key).encrypt(message.encode())
 
 
 def decrypt_message(encrypted_message: bytes):
-    if APP_ENVIRONMENT != Environment.PROD.name:
-        return encrypted_message
-
     key = ENCRYPT_KEY.encode()
     return Fernet(key).decrypt(encrypted_message).decode()
 

@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from starlette import status
 
 import infra.repositories.user_repository as user_repo
+import infra.repositories.general_repository as general_repo
 from constants import USER_NOT_FOUND
 from domain import utils
 from domain.enums import UserRole
@@ -10,7 +11,7 @@ from services.dtos import SendMessageToUserRequest, SendMessageToAllUsersRequest
 
 
 def start_app():
-    if len(user_repo.find_users()) == 0:
+    if not general_repo.ainterview_database_exists():
         admin_user = utils.create_admin()
         user_repo.insert_user(admin_user)
 
