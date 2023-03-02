@@ -4,13 +4,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from starlette import status
 
 import services.admin_services as admin_serv
+import services.audit_services as audit
 import services.security_services as sec_serv
 import services.user_services as user_serv
-import services.audit_services as audit
 from domain.enums import UserRole
 from domain.users import User
-from services.dtos import SendMessageToUserRequest, \
-    SendMessageToAllUsersRequest
+from rest_api.dtos import SendMessageToUserRequest, SendMessageToAllUsersRequest
 
 admin_api = APIRouter()
 

@@ -11,8 +11,8 @@ import infra.repositories.user_repository as user_repo
 from constants import *
 from domain.enums import Environment, State, UserRole
 from domain.users import User, UserInvitation, UserPassword, ResetPasswordToken
+from rest_api.dtos import CreateUserRequest, InviteUserRequest, UpdateUserContactInfoRequest
 from services import notification_services
-from services.dtos import CreateUserRequest, InviteUserRequest, UpdateUserContactInfoRequest
 
 
 def get_user_by_id(user_id: str) -> User:
@@ -109,7 +109,8 @@ def get_sponsor_info(sponsor_user_id: str, invitation_code: str):
     sponsor = get_user_by_id(sponsor_user.id)
     return {
         'given_names': sponsor.given_names.split()[0],
-        'family_names': sponsor.family_names.split()[0]
+        'family_names': sponsor.family_names.split()[0],
+        'email': sponsor.email
     }
 
 
@@ -144,7 +145,8 @@ def create_user(create_user_request: CreateUserRequest):
         language=create_user_request.language,
         role=create_user_request.user_role,
         passwords=[password],
-        anti_phishing_phrase=create_user_request.anti_phishing_phrase
+        anti_phishing_phrase=create_user_request.anti_phishing_phrase,
+        state=State.ACTIVE
     )
 
     user_repo.insert_user(user)
@@ -188,3 +190,13 @@ def check_expired_passwords():
 
             elif days_to_expire <= REMAINING_PASSWORD_DAYS_TO_SEND_NOTIFICATION:
                 notification_services.send_password_near_to_expire(user, days_to_expire)
+
+
+def get_users(current_user: User) -> List:
+    users: List[User] = user_repo.find_users()
+    users_list = []
+    for user in users:
+        if user.role != UserRole.ADMIN and user.state != State.INACTIVE and current_user.id != user.id:
+            users_list.append(user.to_simple_data())
+
+    return users_list

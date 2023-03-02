@@ -1,13 +1,13 @@
 from fastapi import HTTPException
 from starlette import status
 
-import infra.repositories.user_repository as user_repo
 import infra.repositories.general_repository as general_repo
+import infra.repositories.user_repository as user_repo
 from constants import USER_NOT_FOUND
 from domain import utils
 from domain.enums import UserRole
+from rest_api.dtos import SendMessageToUserRequest, SendMessageToAllUsersRequest
 from services import notification_services
-from services.dtos import SendMessageToUserRequest, SendMessageToAllUsersRequest
 
 
 def start_app():

@@ -15,7 +15,7 @@ from constants import ENCRYPT_KEY, SECURITY_ALGORITHM, MAXIMUM_WRONG_PASSWORD_AT
 from domain.enums import State
 from domain.users import User, ResetPasswordToken
 from services import notification_services
-from services.dtos import ChangePasswordRequest, ReassignExpiredPasswordRequest, \
+from rest_api.dtos import ChangePasswordRequest, ReassignExpiredPasswordRequest, \
     ResetPasswordRequest
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="security/login")

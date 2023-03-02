@@ -85,6 +85,7 @@ class User:
     reset_password_token: Optional[ResetPasswordToken] = None
     expired_password_token: Optional[str] = None
     requested_changes_token: Optional[str] = None
+    projects: Optional[List[str]] = None
 
     def get_current_active_password(self):
         active_passwords = [password for password in self.passwords if password.state == State.ACTIVE]
@@ -146,6 +147,7 @@ class User:
                 self.expired_password_token) if self.expired_password_token else None,
             'requested_changes_token': utils.encrypt_message(
                 self.requested_changes_token) if self.requested_changes_token else None,
+            'projects': self.projects
         }
 
     def to_api_response(self):
@@ -159,5 +161,15 @@ class User:
             'anti_phishing_phrase': self.anti_phishing_phrase,
             'role': self.role.name,
             'state': self.state.name,
-            'creation_date': self.creation_date.strftime(DATETIME_FORMAT)
+            'creation_date': self.creation_date.strftime(DATETIME_FORMAT),
+            'projects': self.projects
+        }
+
+    def to_simple_data(self):
+        return {
+            'id': self.id,
+            'email': self.email,
+            'given_names': self.given_names,
+            'family_names': self.family_names,
+            'nickname': self.nickname,
         }

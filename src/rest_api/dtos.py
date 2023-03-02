@@ -1,3 +1,5 @@
+import datetime
+
 from pydantic import BaseModel, EmailStr, validator
 
 from domain import utils
@@ -137,4 +139,83 @@ class SendMessageToAllUsersRequest(BaseModel):
             'message': self.message,
             'subject': self.subject,
             'language': self.language.name
+        }
+
+
+class CreateEvaluationRequest(BaseModel):
+    project_id: str
+    evaluation_name: str
+    evaluation_description: str
+    language: Language
+
+    def to_audit(self):
+        return {
+            'project_id': self.project_id,
+            'evaluation_name': self.evaluation_name,
+            'evaluation_description': self.evaluation_description,
+            'language': self.language
+        }
+
+
+class UpdateEvaluationInfoRequest(BaseModel):
+    evaluation_id: str
+    project_id: str
+    evaluation_name: str
+    evaluation_description: str
+    language: Language
+
+    def to_audit(self):
+        return {
+            'evaluation_id': self.evaluation_id,
+            'project_id': self.project_id,
+            'evaluation_name': self.evaluation_name,
+            'evaluation_description': self.evaluation_description,
+            'language': self.language
+        }
+
+
+class CreateQuestionRequest(BaseModel):
+    project_id: str
+    evaluation_id: str
+    text: str
+    mandatory: bool
+    time_to_respond: datetime.time
+
+    def to_audit(self):
+        return {
+            'project_id': self.project_id,
+            'evaluation_id': self.evaluation_id,
+            'text': self.text,
+            'time_to_respond': self.time_to_respond
+        }
+
+
+class UpdateQuestionRequest(BaseModel):
+    project_id: str
+    evaluation_id: str
+    question_id: str
+    text: str
+    mandatory: bool
+    time_to_respond: datetime.time
+
+    def to_audit(self):
+        return {
+            'project_id': self.project_id,
+            'evaluation_id': self.evaluation_id,
+            'question_id': self.question_id,
+            'text': self.text,
+            'time_to_respond': self.time_to_respond
+        }
+
+
+class DeleteQuestionRequest(BaseModel):
+    project_id: str
+    evaluation_id: str
+    question_id: str
+
+    def to_audit(self):
+        return {
+            'project_id': self.project_id,
+            'evaluation_id': self.evaluation_id,
+            'question_id': self.question_id,
         }

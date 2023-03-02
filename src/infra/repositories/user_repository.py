@@ -44,7 +44,8 @@ def update_user(user: User):
             'invitations': [invitation.to_dict() for invitation in user.invitations] if user.invitations else None,
             'reset_password_token': user.reset_password_token.to_dict() if user.reset_password_token else None,
             'expired_password_token': user.expired_password_token if user.expired_password_token else None,
-            'requested_changes_token': user.requested_changes_token if user.requested_changes_token else None
+            'requested_changes_token': user.requested_changes_token if user.requested_changes_token else None,
+            'projects': user.projects
         }}
     )
 
@@ -80,7 +81,8 @@ def deserialize_user(user_data: Dict) -> User:
         expired_password_token=user_data.get('expired_password_token') if user_data.get(
             'expired_password_token') else None,
         requested_changes_token=user_data.get('requested_changes_token') if user_data.get(
-            'requested_changes_token') else None
+            'requested_changes_token') else None,
+        projects=user_data.get('projects')
     )
 
 

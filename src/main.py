@@ -9,14 +9,18 @@ from starlette.requests import Request
 
 from constants import API_PORT, API_RELOAD, LOG_LEVEL, WEB_UI_PATH
 from rest_api.admin_api import admin_api
+from rest_api.evaluation_api import evaluation_api
+from rest_api.project_api import project_api
 from rest_api.security_api import security_api
 from rest_api.user_api import users_api
 
 LOG_FILENAME = f'data/logs/API.log'
 
-USERS_PREFIX = '/users'
 SECURITY_PREFIX = '/security'
 ADMIN_PREFIX = '/admin'
+USERS_PREFIX = '/users'
+PROJECTS_PREFIX = '/projects'
+EVALUATIONS_PREFIX = '/evaluations'
 
 handler = handlers.TimedRotatingFileHandler(filename=LOG_FILENAME, when='midnight', backupCount=60)
 logging.basicConfig(format='[%(asctime)s] - %(levelname)s %(message)s', level=LOG_LEVEL, handlers=[handler])
@@ -33,6 +37,14 @@ tags_metadata = [
     {
         "name": "Users",
         "description": "Operations with users"
+    },
+    {
+        "name": "Projects",
+        "description": "Operations to create and handle projects"
+    },
+    {
+        "name": "Evaluations",
+        "description": "Operations with evaluations"
     }
 ]
 
@@ -91,6 +103,8 @@ async def log_requests(request: Request, call_next):
 app.include_router(security_api, prefix=SECURITY_PREFIX, dependencies=[Depends(log_json)])
 app.include_router(admin_api, prefix=ADMIN_PREFIX, dependencies=[Depends(log_json)])
 app.include_router(users_api, prefix=USERS_PREFIX, dependencies=[Depends(log_json)])
+app.include_router(project_api, prefix=PROJECTS_PREFIX, dependencies=[Depends(log_json)])
+app.include_router(evaluation_api, prefix=EVALUATIONS_PREFIX, dependencies=[Depends(log_json)])
 
 if __name__ == '__main__':
     uvicorn.run('main:app', host='0.0.0.0', port=API_PORT, reload=API_RELOAD)

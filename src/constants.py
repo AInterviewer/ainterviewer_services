@@ -38,10 +38,16 @@ USER_ALREADY_EXIST_WITH_EMAIL = 'user-already-exist-with-email'
 SPONSOR_NOT_FOUND = 'sponsor-not-found'
 INVALID_INVITATION = 'invalid-invitation'
 INVITATION_ALREADY_USED = 'invitation-already-used'
+PROJECT_ALREADY_EXIST = 'project-already-exist'
+PROJECT_DO_NOT_EXIST = 'project-do-not-exist'
+USER_NOT_IN_PROJECT = 'user-not-in-project'
+EVALUATION_DO_NOT_EXIST = 'evaluation-do-not-exist'
+QUESTION_DO_NOT_EXIST = 'question-do-not-exist'
 
 # date time formats
 DATETIME_FORMAT = '%Y-%m-%d %H:%M:%S'
 DATE_FORMAT = '%Y-%m-%d'
+TIME_FORMAT = '%H:%M:%S'
 
 # For PROD, STAGE, DEV environments
 APP_ENVIRONMENT = env('APP_ENVIRONMENT', 'DEV')
@@ -65,9 +71,19 @@ API_RELOAD = to_bool(env('API_RELOAD', True))
 # Cron
 PROCESS_USERS_CRON = env('PROCESS_USERS_CRON', '*/1 * * * *')
 
-
 # Email Server
 SMTP_PORT = int(env('SMTP_PORT', 0))
-SMTP_SERVER = env('SMTP_SERVER', "")
-SENDER_EMAIL = env('SENDER_EMAIL', "")
-SENDER_PASSWORD = env('SENDER_PASSWORD', "")
+SMTP_SERVER = env('SMTP_SERVER', '')
+SENDER_EMAIL = env('SENDER_EMAIL', '')
+SENDER_PASSWORD = env('SENDER_PASSWORD', '')
+
+# Open API
+MODEL = env('MODEL', 'gpt-3.5-turbo')
+MAX_TOKENS = int(env('MAX_TOKENS', 32))
+MODEL_TEMPERATURE = float(env('MODEL_TEMPERATURE', 0.1))
+API_KEY = env('API_KEY', '')
+QUESTION_EN = env('QUESTION_EN', 'Write the next question but in different words "<topic>"')
+QUESTION_ES = env('QUESTION_ES', 'Escribe la siguiente pregunta pero con palabras diferentes "<topic>"')
+ANSWERS = env('ANSWERS', 'For the question "<question>" could you evaluate from 1 to 5 being 1 is not good '
+                         'and 5 is an excellent response: "<answer>". Give me it in format '
+                         '"int, the explanation for the rate"')

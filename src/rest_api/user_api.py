@@ -1,13 +1,13 @@
-from typing import Dict
+from typing import Dict, List
 
 from fastapi import APIRouter, Depends
 from starlette import status
 
+import services.audit_services as audit
 import services.security_services as sec_serv
 import services.user_services as user_serv
-import services.audit_services as audit
 from domain.users import User
-from services.dtos import InviteUserRequest, CreateUserRequest, UpdateUserContactInfoRequest
+from rest_api.dtos import InviteUserRequest, CreateUserRequest, UpdateUserContactInfoRequest
 
 users_api = APIRouter()
 
@@ -29,7 +29,7 @@ async def get_sponsor_info(sponsor_user_id: str, invitation_code: str) -> Dict:
     return user_serv.get_sponsor_info(sponsor_user_id, invitation_code)
 
 
-@users_api.post('', tags=['Users'], status_code=status.HTTP_201_CREATED)
+@users_api.post('/create', tags=['Users'], status_code=status.HTTP_201_CREATED)
 async def create_user(create_user_request: CreateUserRequest) -> bool:
     """Creates a new user"""
     try:
@@ -39,9 +39,9 @@ async def create_user(create_user_request: CreateUserRequest) -> bool:
         audit.audit_entity('', 'created_user', create_user_request.to_audit())
 
 
-@users_api.get('', tags=['Users'], status_code=status.HTTP_200_OK)
+@users_api.get('/me', tags=['Users'], status_code=status.HTTP_200_OK)
 async def get_user(user: User = Depends(sec_serv.get_current_user)) -> Dict:
-    """Gets a user"""
+    """Gets all the user information"""
     return user_serv.get_secure_user_data(user)
 
 
@@ -54,3 +54,9 @@ async def update_user_contact_info(update_user_contact_info_request: UpdateUserC
         return True
     finally:
         audit.audit_entity(user.id, 'updated_user_contact_info', update_user_contact_info_request.to_audit())
+
+
+@users_api.get('', tags=['Users'], status_code=status.HTTP_200_OK)
+async def get_users_info(user: User = Depends(sec_serv.get_current_user)) -> List:
+    """Gets the basic info of the users"""
+    return user_serv.get_users(user)

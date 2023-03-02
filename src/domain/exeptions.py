@@ -10,3 +10,8 @@ class ApiCallException(Exception):
 @dataclass
 class BusinessException(Exception):
     message: str
+
+
+@dataclass
+class AIModelException(Exception):
+    message: str

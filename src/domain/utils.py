@@ -6,7 +6,7 @@ import uuid
 
 from cryptography.fernet import Fernet
 
-from constants import DATE_FORMAT, DATETIME_FORMAT, ENCRYPT_KEY, APP_ENVIRONMENT
+from constants import DATE_FORMAT, DATETIME_FORMAT, ENCRYPT_KEY, APP_ENVIRONMENT, TIME_FORMAT
 from domain.enums import Environment, Language, UserRole, State
 from domain.users import User, UserPassword
 
@@ -16,6 +16,10 @@ SPECIAL_SYMBOLS = ['!', '#', '$', '%', '&', '/', '(', ')', '=', '?', '¡', '|', 
 
 def get_datetime_from_str(datetime_str: str) -> datetime.datetime:
     return datetime.datetime.strptime(datetime_str, DATETIME_FORMAT)
+
+
+def get_time_from_str(time_str: str) -> datetime.datetime:
+    return datetime.datetime.strptime(time_str, TIME_FORMAT)
 
 
 def get_today_str():

@@ -8,7 +8,7 @@ from starlette.requests import Request
 import services.security_services as sec_serv
 import services.audit_services as audit
 from domain.users import User
-from services.dtos import ChangePasswordRequest, ReassignExpiredPasswordRequest, \
+from rest_api.dtos import ChangePasswordRequest, ReassignExpiredPasswordRequest, \
     ForgotPasswordRequest, ResetPasswordRequest
 
 security_api = APIRouter()
