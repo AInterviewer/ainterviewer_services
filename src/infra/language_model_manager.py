@@ -3,7 +3,7 @@ import re
 
 import openai
 
-from constants import MODEL, ANSWERS, API_KEY, QUESTION_EN, QUESTION_ES, MAX_TOKENS
+from constants import MODEL, ANSWERS, API_KEY, QUESTION_EN, QUESTION_ES, MAX_TOKENS, MODEL_TEMPERATURE
 from domain.enums import Language
 from domain.evaluations import EvaluationResult
 from domain.exeptions import AIModelException
@@ -19,7 +19,7 @@ def execute_prompt(prompt: str) -> str:
              'content': prompt},
         ],
         max_tokens=MAX_TOKENS,
-        temperature=0.1
+        temperature=MODEL_TEMPERATURE
     )
     return completion.choices[0].message.content
 

@@ -182,5 +182,5 @@ def evaluate_answer(question: str, answer: str) -> EvaluationResult:
     return result
 
 
-def generate_question(topic: str, language: Language) -> str:
-    return model.create_question(topic, language)
+def generate_question(topic: str, language: Language) -> Dict:
+    return {'question': model.create_question(topic, language)}

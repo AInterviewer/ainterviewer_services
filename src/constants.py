@@ -80,10 +80,11 @@ SENDER_PASSWORD = env('SENDER_PASSWORD', '')
 # Open API
 MODEL = env('MODEL', 'gpt-3.5-turbo')
 MAX_TOKENS = int(env('MAX_TOKENS', 32))
-MODEL_TEMPERATURE = float(env('MODEL_TEMPERATURE', 0.1))
+MODEL_TEMPERATURE = float(env('MODEL_TEMPERATURE', 0.5))
 API_KEY = env('API_KEY', '')
 QUESTION_EN = env('QUESTION_EN', 'Write the next question but in different words "<topic>"')
 QUESTION_ES = env('QUESTION_ES', 'Escribe la siguiente pregunta pero con palabras diferentes "<topic>"')
 ANSWERS = env('ANSWERS', 'For the question "<question>" could you evaluate from 1 to 5 being 1 is not good '
-                         'and 5 is an excellent response: "<answer>". Give me it in format '
-                         '"int, the explanation for the rate"')
+                         'and 5 is an excellent response: "<answer>". Give me the response'
+                         ' in format: "(integer), (a short explanation of the number given in the same '
+                         'language of the question)"')
